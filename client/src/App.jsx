@@ -1,23 +1,21 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter, Routes, Route} from 'react-router-dom'
 import Header from './components/Header.jsx'
-import Home from './components/Home.jsx'
-import About from './components/About.jsx'
 import Footer from './components/Footer.jsx';
-import HomeScreen from './pages/HomeScreen.jsx'
 import { Container } from 'react-bootstrap';
+import { Outlet } from 'react-router-dom';
 
 function App() {
 
   return (
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/" element={<HomeScreen />} />
-        <Route path="/about" element={<About />} />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+    <>
+      <Header/>
+      <main className='py-3'>
+        <Container>
+          <Outlet/>
+        </Container>
+      </main>
+      <Footer/>
+    </>
   )
 }
 
