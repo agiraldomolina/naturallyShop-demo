@@ -13,7 +13,7 @@ export default function Header() {
                     <Navbar.Brand >
                         <span>
                             <img src={hojas} alt='logo' width='30' height='30' className='d-inline-block align-top' />
-                            Naturally<span style={{color:'#026100'}}>Shop</span>
+                            Naturally<span style={{color:'#9dff2e'}}>Care</span>
                         </span>
                     </Navbar.Brand>
                 </LinkContainer>
