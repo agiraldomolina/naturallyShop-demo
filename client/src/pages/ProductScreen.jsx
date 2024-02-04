@@ -12,7 +12,6 @@ export default function ProductScreen() {
     const {data: product, isLoading, error} = useGetProductDetailsQuery(productId);
     console.log(product);
     
-
   return (
     <>
         <Link
