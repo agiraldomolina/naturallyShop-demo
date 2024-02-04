@@ -2,6 +2,8 @@ import { useParams } from 'react-router-dom'
 import {  Link} from 'react-router-dom'
 import {Row, Col, Image, ListGroup, Card, Button} from 'react-bootstrap'
 import Rating from '../components/Rating'
+import Loader from '../components/Loader';
+import Message from '../components/Message';
 import { useGetProductDetailsQuery } from '../slices/productsApiSlices'
 
 export default function ProductScreen() {
@@ -9,6 +11,7 @@ export default function ProductScreen() {
     console.log(productId);
     const {data: product, isLoading, error} = useGetProductDetailsQuery(productId);
     console.log(product);
+    
 
   return (
     <>
@@ -17,9 +20,10 @@ export default function ProductScreen() {
         >
             Go Bach
         </Link>
+        
         {isLoading?(
-            <h2>Loading...</h2>
-        ):error?(<div>{error?.data?.message || error.error}</div>):(
+            <Loader />
+        ):error?(<Message variant='danger'>{error?.data?.message || error.error}</Message>):(
             <Row>
                 <Col md={5}>
                     <Image src={product.image} alt={product.image}fluid rounded />
