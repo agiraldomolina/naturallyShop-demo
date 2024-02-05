@@ -23,9 +23,11 @@ export default function ProductScreen() {
     
     console.log(productId);
     console.log(product);
+    console.log('qty: ' + qty);
     //console.log([...Array(product.countInStock).keys()])
     const addToCartHandler=() => {
         dispatch(addToCart({...product, qty}));
+        console.log('product:' + JSON.stringify( product))
         navigate('/cart');
     }
     
