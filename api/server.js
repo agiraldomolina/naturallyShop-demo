@@ -1,6 +1,6 @@
 import express from 'express';
+import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
-import products from './data/products.js';
 import connectDB from './config/db.js';
 import productRoutes from './routes/product.routes.js';
 import userRoutes from './routes/user.routes.js';
@@ -16,6 +16,9 @@ const app=express();
 // Body parser middleware to get data form the body
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+
+// Cookie parser middleware to get data from cookies
+app.use(cookieParser());
 
 app.get('/',(req,res)=>{
     res.send('API is working');
