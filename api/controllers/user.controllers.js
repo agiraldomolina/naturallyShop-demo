@@ -2,6 +2,7 @@ import asyncHandler from "../middleware/asyncHandler.js"
 import User from "../models/user.model.js"
 
 
+
 // @desc Register
 // @route Post /api/users
 // @access Public
@@ -13,7 +14,22 @@ export const registerUser = asyncHandler(async(req,res)=>{
 // @route POST /api/users/login
 // @access Public
 export const loginUser = asyncHandler(async(req,res)=>{
-    res.send('login user')
+    const {email,password} = req.body;
+
+    const user = await User.findOne({email});
+
+    if(user && (await user.matchPassword(password))){
+        res.json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin,
+        })
+    }else{
+        res.status(401);
+        throw new Error('Inavlid email or password');
+    }
+    
 })
 
 // @desc Logout user & clear cookie
