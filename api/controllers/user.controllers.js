@@ -48,14 +48,21 @@ export const loginUser = asyncHandler(async(req,res)=>{
 // @route POST /api/users/logout
 // @access Private
 export const logoutUser = asyncHandler(async(req,res)=>{
-    res.send('logout user')
+    res.cookie('jwt','',{
+        httpOnly: true,
+        expires: new Date(0)
+    });
+
+    res
+    .status(200)
+    .json({message: 'Logged out successfully'})
 })
 
 // @desc get user profile
 // @route GET /api/users/profile
 // @access Private
 export const getUserProfile = asyncHandler(async(req,res)=>{
-    res.send('get user profile')
+   res.json('get user profile')
 })
 
 // @desc Update user profile
