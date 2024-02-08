@@ -11,7 +11,12 @@ export default function Header() {
 
   return (
     <header>
-        <Navbar bg='dark' variant='dark' expand='md' collapseOnSelect>
+        <Navbar 
+            variant='dark' 
+            expand='md'
+            style={{backgroundColor: 'var(--bs-dark)'}} 
+            collapseOnSelect
+        >
             <Container className='px-2'>
                 <LinkContainer to='/'>
                     <Navbar.Brand >

@@ -70,6 +70,7 @@ export default function CartScreen() {
                                 <Button
                                     className='btn-block'
                                     type='button'
+                                    style={{backgroundColor: 'var(--bs-dark)'}}
                                     onClick={() =>removeFromCartHandler(item._id)}
                                 >
                                     <FaTrash />
@@ -94,6 +95,7 @@ export default function CartScreen() {
                     <Button
                         type='button'
                         className='btn-block'
+                        style={{backgroundColor: 'var(--bs-dark)'}}
                         disabled={cartItems.length === 0}
                         onClick={checkoutHandler}
                     >
