@@ -25,6 +25,10 @@ export default function ShippingScreen() {
         // navigate('/payment');
     }
 
+    const continueHandler=()=>{
+        navigate('/login?redirect=/payment');
+    }
+
   return (
     <FormContainer>
         <CheckoutSteps step1 step2 />
@@ -88,6 +92,7 @@ export default function ShippingScreen() {
                 type="submit"
                 variant="primary"
                 className="my-2"
+                onClick={continueHandler}
             >
                 Continue
             </Button>
