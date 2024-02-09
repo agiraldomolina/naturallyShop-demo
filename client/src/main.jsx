@@ -12,6 +12,7 @@ import './assets/styles/bootstrap.custom.css'
 import './assets/styles/index.css'
 import App from './App.jsx'
 import './index.css'
+import PrivateRoute from './components/PrivateRoute.jsx'
 import HomeScreen from './pages/HomeScreen.jsx'
 import ProductScreen from './pages/ProductScreen.jsx'
 import CartScreen from './pages/CartScreen.jsx'
@@ -24,10 +25,12 @@ const router = createBrowserRouter(
     <Route path='/' element={<App />}>
       <Route index={true} path='/' element={<HomeScreen/>} />
       <Route path='/product/:id' element={<ProductScreen/>} />
-      <Route path='/cart' element={<CartScreen/>} />
       <Route path='/login' element={<LoginScreen/>} />
       <Route path='/register' element={<RegisterScreen/>} />
-      <Route path='/shipping' element={<ShippingScreen/>} />
+      <Route element={<PrivateRoute/>}>
+        <Route path='/shipping' element={<ShippingScreen/>} />
+        <Route path='/cart' element={<CartScreen/>} />
+      </Route>
     </Route>
   )
 )
