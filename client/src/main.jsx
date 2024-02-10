@@ -20,6 +20,7 @@ import LoginScreen from './pages/LoginScreen.jsx'
 import RegisterScreen from './pages/RegisterScreen .jsx';
 import ShippingScreen from './pages/ShippingScreen.jsx'
 import PaymentScreen from './pages/PaymentScreen.jsx'
+import PlaceOrderScreen from './pages/PlaceOrderScreen.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,6 +33,7 @@ const router = createBrowserRouter(
         <Route path='/shipping' element={<ShippingScreen/>} />
         <Route path='/cart' element={<CartScreen/>} />
         <Route path='/payment' element={<PaymentScreen/>} />
+        <Route path='/place-order' element={<PlaceOrderScreen/>} />
       </Route>
     </Route>
   )
