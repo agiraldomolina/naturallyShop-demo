@@ -6,6 +6,7 @@ import Order from "../models/order.model.js"
 // @route POST /api/orders
 // @access Private
 export const addOrderItems = asyncHandler(async(req,res)=>{
+    console.log('req body from addOrderItems: '  + req.body);
     const {
         orderItems,
         shippingAddress,
@@ -20,12 +21,13 @@ export const addOrderItems = asyncHandler(async(req,res)=>{
         res.status(400);
         throw new Error('Please add at least one order item');
     }else{
-        const order = Order.create({
+        const order = new Order({
             orderItems: orderItems.map((item)=>({
                 ...item,
                 product:item._id,
                 _id:undefined
             })),
+            user:req.user._id,
             shippingAddress,
             paymentMethod,
             itemsPrice,
@@ -33,6 +35,7 @@ export const addOrderItems = asyncHandler(async(req,res)=>{
             shippingPrice,
             totalPrice
         });
+        console.log('order from controller: '+ order);
         const createdOrder = await order.save();
 
         res
