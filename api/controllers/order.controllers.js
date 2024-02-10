@@ -6,22 +6,68 @@ import Order from "../models/order.model.js"
 // @route POST /api/orders
 // @access Private
 export const addOrderItems = asyncHandler(async(req,res)=>{
-    res.send('add order items')
-    });
+    const {
+        orderItems,
+        shippingAddress,
+        paymentMethod,
+        itemsPrice,
+        taxPrice,
+        shippingPrice,
+        totalPrice
+    } = req.body;
+
+    if(orderItems && orderItems.length === 0){
+        res.status(400);
+        throw new Error('Please add at least one order item');
+    }else{
+        const order = Order.create({
+            orderItems: orderItems.map((item)=>({
+                ...item,
+                product:item._id,
+                _id:undefined
+            })),
+            shippingAddress,
+            paymentMethod,
+            itemsPrice,
+            taxPrice,
+            shippingPrice,
+            totalPrice
+        });
+        const createdOrder = await order.save();
+
+        res
+        .status(201)
+        .json(createdOrder);
+    };
+});
 
 // @description Get logged in user's orders
 // @route GET /api/orders/myorders
 // @access Private
 export const getMyOrders = asyncHandler(async(req,res)=>{
-    res.send('get my orders')
-    });
+   const orders = await Order.find({user:req.user._id});
+   res
+   .status(200)
+   .json(orders); 
+});
 
 // @description Get order by ID
 // @route GET /api/orders/:id
 // @access Private
 export const getOrderById = asyncHandler(async(req,res)=>{
-    res.send('get order by id')
-    });
+    const order = await Order
+        .findById(req.params.id)
+        .populate('user','name email');
+
+    if(order){
+        res
+        .status(200)
+        .json(order);
+    }else{
+        res.status(404)
+        throw new Error('Order not found');
+    }
+});
 
 // @description Update order to paid
 // @route PUT /api/orders/:id/pay
