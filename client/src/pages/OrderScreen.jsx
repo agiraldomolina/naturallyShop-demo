@@ -36,7 +36,7 @@ export default function OrderScreen() {
                         </p>
                         {order.isDelivered ? (
                             <Message variant='success'>
-                                Delivered on {order.deliveredAt}
+                                Delivered on {new Date(order.deliveredAt).toLocaleDateString()}
                             </Message>
                         ):(
                             <Message variant='danger'>
@@ -52,7 +52,7 @@ export default function OrderScreen() {
                         </p>
                         {order.isPaid ? (
                             <Message variant='success'>
-                                Paid on {order.paiddAt}
+                                Paid on {new Date(order.paidAt).toLocaleDateString()}
                             </Message>
                         ):(
                             <Message variant='danger'>

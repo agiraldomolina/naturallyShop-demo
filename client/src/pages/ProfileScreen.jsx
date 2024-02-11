@@ -7,7 +7,9 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { toast } from 'react-toastify';
 import { useProfileMutation } from '../slices/usersApiSlice';
+import { useGetMyOrdersQuery } from '../slices/ordersApiSlice';
 import { setCredentials } from '../slices/authSlice';
+import {FaTimes} from 'react-icons/fa'
 
 export default function ProfileScreen() {
     const [name, setName] = useState('');
@@ -21,6 +23,9 @@ export default function ProfileScreen() {
     const {userInfo} = useSelector((state) => state.auth);
 
     const [updateProfile, {isLoading:loadingUpdateProfile}] = useProfileMutation();
+
+    const {data:orders,isLoading, error} = useGetMyOrdersQuery();
+    console.log(orders);
 
     useEffect(() => {
         if(userInfo) {
@@ -113,7 +118,53 @@ export default function ProfileScreen() {
         </Form>
     </Col>
     <Col md={9}>
-        column9
+        <h2>Orders</h2>
+        {isLoading ? <Loader/>:error? <Message variant='danger'>
+            {error?.data?.message || error.error}
+        </Message>:
+        <Table striped hover responsive className='table-sm'>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>DATE</th>
+                    <th>TOTAL</th>
+                    <th>PAID</th>
+                    <th>DELIVERED</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {orders.map((order, index)=>(
+                    <tr key={index}>
+                        <td>{order._id}</td>
+                        <td>{new Date(order.createdAt).toLocaleDateString()}</td>
+                        <td>${order.totalPrice}</td>
+                        <td>
+                            {order.isPaid? (
+                               new Date(order.paidAt).toLocaleDateString()
+                            ):(
+                                <FaTimes style={{color:'red'}}/>
+                            )}
+                        </td>
+                        <td>
+                            {order.isDelivered? (
+                               new Date(order.deliveredAt).toLocaleDateString()
+                            ):(
+                                <FaTimes style={{color:'red'}}/>
+                            )}
+                        </td>   
+                        <td>
+                            <LinkContainer to={`/order/${order._id}`}>
+                                <Button variant='light' className='btn-sm'>
+                                    Details
+                                </Button>
+                            </LinkContainer>
+                        </td>
+                    </tr>
+                ))}
+            </tbody>
+        </Table>
+        }
     </Col>
   </Row>
 }
