@@ -58,6 +58,7 @@ export const getMyOrders = asyncHandler(async(req,res)=>{
 // @route GET /api/orders/:id
 // @access Private
 export const getOrderById = asyncHandler(async(req,res)=>{
+    console.log('req params from getOrderById: '+ req.params.id);
     const order = await Order
         .findById(req.params.id)
         .populate('user','name email');
@@ -76,8 +77,28 @@ export const getOrderById = asyncHandler(async(req,res)=>{
 // @route PUT /api/orders/:id/pay
 // @access Private
 export const updateOrderToPaid = asyncHandler(async(req,res)=>{
-    res.send('update order to paid')
-    });
+
+    const order = await Order.findById(req.params.id);
+    
+    if(order){
+        order.isPaid = true;
+        order.paidAt=Date.now();
+        order.paymentResult = {
+            id:req.body.id,
+            status:req.body.status,
+            update_time:req.body.update_time,
+            email_address:req.body.email_address,
+        }
+        const updatedOrder = await order.save();
+
+        res
+        .status(200)
+        .json(updatedOrder);
+    }else{
+        res.status(404)
+        throw new Error('Order not found');
+    }
+});
 
 // @description Update order to delivered
 // @route PUT /api/orders/:id/deliver

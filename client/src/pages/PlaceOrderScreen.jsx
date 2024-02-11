@@ -8,8 +8,6 @@ import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { useCreateOrderMutation } from "../slices/ordersApiSlice";
 import {clearCartItems} from "../slices/cartSlice";
-import { setCredentials } from "../slices/authSlice";
-
 
 export default function PlaceOrderScreen() {
     const navigate = useNavigate();
