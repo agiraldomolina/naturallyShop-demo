@@ -13,6 +13,7 @@ import './assets/styles/index.css'
 import App from './App.jsx'
 import './index.css'
 import PrivateRoute from './components/PrivateRoute.jsx'
+import AdminRoute from './components/AdminRoute.jsx'
 import HomeScreen from './pages/HomeScreen.jsx'
 import ProductScreen from './pages/ProductScreen.jsx'
 import CartScreen from './pages/CartScreen.jsx'
@@ -23,6 +24,7 @@ import PaymentScreen from './pages/PaymentScreen.jsx'
 import PlaceOrderScreen from './pages/PlaceOrderScreen.jsx'
 import OrderScreen from './pages/OrderScreen.jsx';
 import ProfileScreen from './pages/ProfileScreen.jsx'
+import OrderListScreen from './pages/OrderListScreen.jsx' ;
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,6 +40,9 @@ const router = createBrowserRouter(
         <Route path='/payment' element={<PaymentScreen/>} />
         <Route path='/place-order' element={<PlaceOrderScreen/>} />
         <Route path='/order/:id' element={<OrderScreen/>} />
+      </Route>
+      <Route element={<AdminRoute/>}>
+        <Route path='/admin/order-list' element={<OrderListScreen/>}/>
       </Route>
     </Route>
   )
