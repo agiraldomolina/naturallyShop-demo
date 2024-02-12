@@ -7,6 +7,7 @@ import { useGetOrdersQuery } from '../../slices/ordersApiSlice';
 
 export default function OrderListScreen() {
     const {data:orders, isLoading, error} = useGetOrdersQuery();
+    
 
 
   return <>
@@ -33,14 +34,14 @@ export default function OrderListScreen() {
               <td>{order.totalPrice}</td>
               <td>
                 {order.isPaid? (
-                  order.paidAt.substring(0,10)
+                  new Date(order.paidAt).toLocaleString()
                 ):(
                   <FaTimes style={{color: 'red'}}/>
                 )}
               </td>
               <td>
                 {order.isDelivered? (
-                  order.deliveredAt.substring(0,10)
+                  new Date(order.deliveredAt).toLocaleString()
                 ):(
                   <FaTimes style={{color: 'red'}}/>
                 )}
