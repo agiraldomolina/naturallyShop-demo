@@ -22,7 +22,7 @@ export default function ShippingScreen() {
     const submitHandler = async (e) => {
         e.preventDefault();
         dispatch(saveShippingAddress({address, city, postalCode, country}));
-        // navigate('/payment');
+         navigate('/payment');
     }
 
     const continueHandler=()=>{
@@ -92,7 +92,6 @@ export default function ShippingScreen() {
                 type="submit"
                 variant="primary"
                 className="my-2"
-                onClick={continueHandler}
             >
                 Continue
             </Button>
