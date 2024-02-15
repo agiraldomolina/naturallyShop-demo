@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { updateCart } from "../utils/cartUtils,js";
 
 const initialState = localStorage.getItem('cart')? JSON.parse(localStorage.getItem('cart')) : {cartItems:[],shippingAddress:{},paymentMethod:'PayPal'};
-console.log('initialState: ' + initialState);
+// console.log('initialState: ' + initialState);
 
 const cartSlice= createSlice({
     name: 'cart',

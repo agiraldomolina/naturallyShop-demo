@@ -6,7 +6,6 @@ import { useGetProductsQuery } from '../slices/productsApiSlices'
 
 export default function HomeScreen() {
   const {data: products, isLoading, error} = useGetProductsQuery();
-  console.log(products);
 
   return (
     <>

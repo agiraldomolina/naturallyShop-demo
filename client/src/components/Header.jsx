@@ -17,7 +17,7 @@ export default function Header() {
 
     const [logoutApiCall] = useLogoutMutation();
 
-    console.log(cartItems);
+    // console.log(cartItems);
 
     const logoutHandler = async () => {
         try {

@@ -5,7 +5,6 @@ import { FaStar,
 
 
 export default function Rating({ value, text}) {
-    console.log(value)
   return (
     <div className="rating">
         <span>

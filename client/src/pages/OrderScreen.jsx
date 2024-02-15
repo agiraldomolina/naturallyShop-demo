@@ -1,11 +1,14 @@
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {Link, useParams} from 'react-router-dom';
 import {Row, Col, ListGroup, Image, Form, Button, Card} from 'react-bootstrap';
+import{PayPalButtons,usePayPalScriptReducer} from '@paypal/react-paypal-js'
 import Message  from '../components/Message';
 import Loader from '../components/Loader';
-import { useGetOrderDetailsQuery } from '../slices/ordersApiSlice';
+import { useGetOrderDetailsQuery, 
+    usePayOrderMutation, 
+    useGetPayPalClientIdQuery }
+from '../slices/ordersApiSlice';
 import { useDeliverOrderMutation } from '../slices/ordersApiSlice';
 import {toast} from'react-toastify';
 import axios from 'axios';
@@ -17,9 +20,20 @@ export default function OrderScreen() {
     const [deliveredOrder, setDeliveredOrder] = useState(null);
 
    const {data:order, refetch,isLoading, error} = useGetOrderDetailsQuery(orderId);
-    //console.log(JSON.stringify(order));
-    console.log(order);
-    console.log(deliveredOrder);
+
+   const [payOrder, {isLoading:loadingPay}]= usePayOrderMutation();
+
+   const [{isPending},paypalDispatch]= usePayPalScriptReducer();
+
+   const {
+        data: paypal, 
+        isLoading:loadingPayPal, 
+        error: errorPaypal
+    }=useGetPayPalClientIdQuery();
+
+
+    // console.log(order);
+    // console.log(deliveredOrder);
 
     const deliverOrderHandler = async () => {
         setLoadingDeliver(true);
@@ -38,7 +52,31 @@ export default function OrderScreen() {
         setLoadingDeliver(false);
         toast.error(error?.data?.messsage || error.message);
        }
-    }
+    };
+
+    useEffect(() => {
+        if(!errorPaypal && !loadingPayPal && paypal.clientId){
+            const loadPayPalScript = async () => {
+                paypalDispatch({
+                    type: 'resetOptions',
+                    value:{
+                        'clientId': paypal.clientId,
+                        currency:'USD',
+
+                    }
+                });
+                paypalDispatch({
+                    type: 'setLoadingStatus',
+                    value: 'pending'
+                })
+            }
+            if(order && !order.isPaid){
+                if(!window.paypal){
+                    loadPayPalScript();
+                }
+            }
+        }
+    }, [order,paypal,paypalDispatch,errorPaypal,loadingPayPal]);
   
 
   return isLoading? <Loader/>:error?<Message variant='dander'/>:(
