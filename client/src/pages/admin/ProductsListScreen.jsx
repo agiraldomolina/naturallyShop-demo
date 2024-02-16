@@ -3,15 +3,28 @@ import {Table, Button, Row, Col} from 'react-bootstrap';
 import {FaTimes, FaEdit, FaTrash} from 'react-icons/fa';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
-import { useGetProductsQuery } from '../../slices/productsApiSlices';
+import { useGetProductsQuery, useCreateProductMutation } from '../../slices/productsApiSlices';
+import { toast} from "react-toastify";
 
 export default function ProductsListScreen() {
-    const {data:products, isLoading, error} = useGetProductsQuery();
+    const {data:products, isLoading, error, refetch} = useGetProductsQuery();
+
+    const [createProduct, {isLoading: loadingCreate}] = useCreateProductMutation();
 
     const deleteHandler = async (id) => {
         console.log('delete:', id);
-    }
+    };
 
+    const createProductHandler = async () => {
+        if(window.confirm('Are you sure you want to create a new product?')){
+            try {
+                await createProduct();
+                refetch()
+            } catch (error) {
+              toast.error(error?.data?.message || error.message);
+            }
+        }
+    };
 
   return <>
     <Row className='align-items-center'>
@@ -21,11 +34,14 @@ export default function ProductsListScreen() {
         <Col className='text-end'>
             <Button
                 className='btn-sm m-3'
+                onClick={createProductHandler}
             >
                 <FaEdit/> Create Product
             </Button>
         </Col>
     </Row>
+
+    {loadingCreate && <Loader/>}
 
     {isLoading ? 
         <Loader/> 
