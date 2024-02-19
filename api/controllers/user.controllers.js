@@ -159,7 +159,7 @@ export const deleteUser = asyncHandler(async(req,res)=>{
 
     if(user){
         if(user.isAdmin){
-            res.status(40);
+            res.status(400);
             throw new Error('You cannot delete this user');
         }
         await User.deleteOne({_id:user._id});
