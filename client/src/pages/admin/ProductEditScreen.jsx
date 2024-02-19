@@ -24,8 +24,15 @@ export default function ProductEditScreen() {
 
     console.log(image);
 
-    const { data: product, isLoading, refetch, error} = useGetProductDetailsQuery(productId);
+    const { 
+        data: product, 
+        isLoading, 
+        refetch, 
+        error
+    } = useGetProductDetailsQuery(productId);
+
     const [updateProduct, {isLoading: loadingUpdate}] = useUpdateProductMutation();
+    
     const [uploadProductImage, {isLoading: loadingImage}] = useUploadProductImageMutation();
 
     const navigate = useNavigate();
@@ -55,6 +62,7 @@ export default function ProductEditScreen() {
             countInStock
         };
         const res = await updateProduct(updatedProduct);
+        refetch();
         if (res.error) {
             toast.error(res.error);
         }else{
@@ -77,6 +85,7 @@ export default function ProductEditScreen() {
     }
     
   return <>
+    {loadingImage && <Loader/>}
     <Link 
         to='/admin/product-list'
         className='btn btn-light my-3'
