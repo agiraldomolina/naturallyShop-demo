@@ -90,6 +90,7 @@ export const updateProduct = asyncHandler(async(req,res)=>{
 // @route DELETE /api/products/:id
 // @access Private/Admin
 export const deleteProduct = asyncHandler(async(req,res)=>{
+    console.log('id from deleteProduct:'+  req.params.id);
     const product = await Product.findById(req.params.id);
 
     if(product){
