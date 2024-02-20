@@ -8,7 +8,7 @@ export default function Footer  () {
       <Container className='p-2'>
         <Row>
           <Col className='text-center py-3'>
-            <p>ProShop &copy; {currentYear}</p>
+            <p>NaturallyShop &copy; {currentYear}</p>
           </Col>
         </Row>
       </Container>

@@ -7,7 +7,7 @@ export const protect = asyncHandler(async(req,res,next)=>{
     
     // Read the JWT from cookie
     token = req.cookies.jwt;  // jwt is the name of the cookie craeted in the user controller
-    console.log(token);
+    // console.log(token);
 
     if (token) {
         try {
@@ -15,7 +15,7 @@ export const protect = asyncHandler(async(req,res,next)=>{
             req.user =  await User.findById(decoded.userId).select('-password')
             next();
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             res.status(401);
             throw new Error('Not autthorized, token failed');
         }

@@ -177,7 +177,7 @@ export const deleteUser = asyncHandler(async(req,res)=>{
 // @access Private/admin
 export const updateUser = asyncHandler(async(req,res)=>{
     const user = await User.findById(req.params.id);
-    console.log('req.body from updateUser: ' + req.body);
+    // console.log('req.body from updateUser: ' + req.body);
 
     if(user){
         user.name = req.body.name || user.name;
