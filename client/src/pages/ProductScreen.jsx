@@ -60,6 +60,7 @@ export default function ProductScreen() {
     <>
         <Link
             className='btn btn-light my-3'
+            to='/'
         >
             Go Bach
         </Link>
@@ -68,7 +69,6 @@ export default function ProductScreen() {
             <Loader />
         ):error?(<Message variant='danger'>{error?.data?.message || error.error}</Message>):(
             <>
-
 
             <Row>
                 <Col md={5}>
