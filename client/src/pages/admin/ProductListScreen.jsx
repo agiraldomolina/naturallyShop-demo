@@ -2,8 +2,10 @@ import { useState } from 'react';
 import {LinkContainer} from 'react-router-bootstrap';
 import {Table, Button, Row, Col, Modal} from 'react-bootstrap';
 import {FaEdit, FaTrash} from 'react-icons/fa';
+import { useParams } from 'react-router-dom';
 import Message from '../../components/Message';
 import Loader from '../../components/Loader';
+import Paginate from '../../components/Paginate';
 import { 
     useGetProductsQuery, 
     useCreateProductMutation,
@@ -12,10 +14,12 @@ import {
 import { toast} from "react-toastify";
 
 export default function ProductsListScreen() {
+    const { pageNumber } = useParams();
+
     const [showModal, setShowModal] = useState(false);
     const [productId, setProductId] = useState(null);
 
-    const {data:products, isLoading, error, refetch} = useGetProductsQuery();
+    const {data, isLoading, error, refetch} = useGetProductsQuery({pageNumber});
 
     const [createProduct, {isLoading: loadingCreate}] = useCreateProductMutation();
 
@@ -86,7 +90,7 @@ export default function ProductsListScreen() {
                         </tr>
                     </thead>
                     <tbody>
-                        {products.map((product,index)=>(
+                        {data.products.map((product,index)=>(
                             <tr key={index}>
                                 <td>{product._id}</td>
                                 <td>{product.name}</td>
@@ -118,6 +122,12 @@ export default function ProductsListScreen() {
                         ))}
                     </tbody>
                 </Table>
+                <Paginate
+                    style={{background:'green'}}
+                    pages={data.pages}
+                    page={data.page}
+                    isAdmin={true}
+                />
             </>
         )}
 
