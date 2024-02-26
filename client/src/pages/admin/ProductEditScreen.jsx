@@ -33,7 +33,7 @@ export default function ProductEditScreen() {
 
     const [updateProduct, {isLoading: loadingUpdate}] = useUpdateProductMutation();
     
-    const [uploadProductImage, {isLoading: loadingImage}] = useUploadProductImageMutation();
+    const [uploadProductImage, {isLoading: loadingUpload}] = useUploadProductImageMutation();
 
     const navigate = useNavigate();
 
@@ -85,7 +85,6 @@ export default function ProductEditScreen() {
     }
     
   return <>
-    {loadingImage && <Loader/>}
     <Link 
         to='/admin/product-list'
         className='btn btn-light my-3'
@@ -139,9 +138,9 @@ export default function ProductEditScreen() {
                         label='Choose file'
                         onChange={uploadFileHandler}
                     >
-
                     </Form.Control>
                 </Form.Group>
+                {loadingUpload && <Loader/>}
                 
                 <Form.Group
                     controlId="brand"

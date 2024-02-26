@@ -9,6 +9,7 @@ import Message from '../components/Message';
 import { useGetProductDetailsQuery, useCreateReviewMutation } from '../slices/productsApiSlices'
 import { addToCart } from '../slices/cartSlice'
 import {toast} from "react-toastify";
+import Meta from '../components/Meta'
 
 export default function ProductScreen() {
     const {id:productId} = useParams();
@@ -69,7 +70,7 @@ export default function ProductScreen() {
             <Loader />
         ):error?(<Message variant='danger'>{error?.data?.message || error.error}</Message>):(
             <>
-
+            <Meta title={product.name}/>
             <Row>
                 <Col md={5}>
                     <Image src={product.image} alt={product.image}fluid rounded />

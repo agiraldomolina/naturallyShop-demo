@@ -24,7 +24,6 @@ export const getProducts = asyncHandler(async(req,res)=>{
 // @route GET /api/products/:id
 // @access Public
 export const getProductById = asyncHandler(async(req,res)=>{
-    console.log('hi from getProductById');
     const product = await Product.findById(req.params.id);
 
     if (product) {
@@ -159,7 +158,6 @@ export const createProductReview = asyncHandler(async(req,res)=>{
 // @route GET /api/products/top
 // @access Public
 export const getTopProducts = asyncHandler(async(req,res)=>{
-    console.log('hi from top');
     const products = await Product
         .find({})
         .sort({rating:-1})
