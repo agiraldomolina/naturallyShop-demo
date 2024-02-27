@@ -1,7 +1,8 @@
 import {Link, useNavigate} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {Row, Col, ListGroup, Image, Form, Button,Card} from 'react-bootstrap';
-import { FaTrash } from 'react-icons/fa';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import Message from '../components/Message';
 import { addToCart, removeFromCart } from '../slices/cartSlice';
 
@@ -74,7 +75,7 @@ export default function CartScreen() {
                                     style={{backgroundColor: 'var(--bs-dark)'}}
                                     onClick={() =>removeFromCartHandler(item._id)}
                                 >
-                                    <FaTrash />
+                                    <FontAwesomeIcon icon={faTrash} />
                                 </Button>
                             </Col>
                         </Row>
