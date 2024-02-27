@@ -12,7 +12,7 @@
     "dev": "nodemon api/server.js",
     "data:import": "node api/seeder.js",
     "data:destroy": "node api/seeder.js -d",
-    "build": "npm install && npm install --prefix client && npm run build --prefix client"
+    "build":"npm install && npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
   "author": "",
