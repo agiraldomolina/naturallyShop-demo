@@ -48,7 +48,7 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'))
 );
 }
-npm
+
 app.use(notFound);
 app.use(errorHandler);
 
