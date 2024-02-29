@@ -10,9 +10,4 @@ export default defineConfig({
     }
   },
   plugins: [react()],
-  build: {
-    rollupOptions: {
-      external: ['react-icons/fa'],
-    },
-  },
 })
