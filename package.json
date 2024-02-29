@@ -8,7 +8,7 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "start": "node api/server.js & npm run client",
+    "start": "node api/server.js",
     "dev": "nodemon api/server.js",
     "data:import": "node api/seeder.js",
     "data:destroy": "node api/seeder.js -d",
