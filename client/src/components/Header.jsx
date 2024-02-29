@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Container, Badge, NavDropdown } from 'react-bootstrap';
-import {FaShoppingCart, FaUser} from'react-icons/fa';
+import {FaShoppingCart, FaUser} from 'react-icons/fa';
 import hojas from '../assets/hojas.png'
 import {LinkContainer} from 'react-router-bootstrap';
 import {useSelector, useDispatch} from 'react-redux';
